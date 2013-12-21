@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Link, Vote
+from .models import Link, Vote, UserProfile
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth import get_user_model
 
 
 class LinkAdmin(admin.ModelAdmin):
@@ -12,3 +14,12 @@ class VoteAdmin(admin.ModelAdmin):
 
 admin.site.register(Vote, VoteAdmin)	
 
+class UserProfileInLine(admin.StackedInline):
+	model = UserProfile
+	can_delete = False
+
+class UserProfileAdmin(UserAdmin):
+	inlines=(UserProfileInLine,)
+
+admin.site.unregister(get_user_model())
+admin.site.register(get_user_model(), UserProfileAdmin)

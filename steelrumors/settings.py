@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'links',
     'steelrumors',
+    'registration',
 )
 
 # settings.py is loaded before everything else, so must use lazy
