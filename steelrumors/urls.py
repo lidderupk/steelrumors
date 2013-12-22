@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from links.views import LinkListView, UserProfileDetailView, UserProfileEditView
+from links.views import LinkDetailView, LinkListView, UserProfileDetailView, UserProfileEditView, LinkCreateView, LinkUpdateView, LinkDeleteView
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required as auth
 admin.autodiscover()
@@ -19,4 +19,9 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^users/(?P<slug>\w+)/$', UserProfileDetailView.as_view(), name="profile"),
     url(r'^edit_profile/$', auth(UserProfileEditView.as_view()),name="edit_profile"),
+    url(r'^link/create/$', auth(LinkCreateView.as_view()), name="link_create"),
+    url(r'^link/(?P<pk>\d+)/$', LinkDetailView.as_view(), name="link_detail"),
+    url(r'^link/update/(?P<pk>\d+)/$', auth(LinkUpdateView.as_view()), name="link_update"),
+    url(r'^link/delete/(?P<pk>\d+)/$', auth(LinkDeleteView.as_view()), name="link_delete"),
+    url(r'^comments/', include("django.contrib.comments.urls")),
 )
