@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from links.views import LinkDetailView, LinkListView, UserProfileDetailView, UserProfileEditView, LinkCreateView, LinkUpdateView, LinkDeleteView
+from links.views import VoteFormView, LinkDetailView, LinkListView, UserProfileDetailView, UserProfileEditView, LinkCreateView, LinkUpdateView, LinkDeleteView
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required as auth
 admin.autodiscover()
@@ -24,4 +24,5 @@ urlpatterns = patterns('',
     url(r'^link/update/(?P<pk>\d+)/$', auth(LinkUpdateView.as_view()), name="link_update"),
     url(r'^link/delete/(?P<pk>\d+)/$', auth(LinkDeleteView.as_view()), name="link_delete"),
     url(r'^comments/', include("django.contrib.comments.urls")),
+    url(r'^vote/$',auth(VoteFormView.as_view()),name="vote")
 )
